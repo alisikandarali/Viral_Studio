@@ -1,0 +1,20 @@
+name: viral_studio
+description: Free video enhancer + 4K video finder + viral tips for TikTok creators.
+publish_to: "none"
+version: 1.0.0
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  image_picker: ^1.1.2
+  ffmpeg_kit_flutter_new: ^3.1.0
+  gal: ^2.3.0
+  path_provider: ^2.1.4
+  http: ^1.2.2
+  url_launcher: ^6.3.0
+
+flutter:
+  uses-material-design: true
