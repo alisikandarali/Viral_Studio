@@ -29,15 +29,16 @@ jobs:
           cp -r tmp_app/android ./android
           rm -rf tmp_app
 
-      - name: Set minSdk and permissions
+      - name: Set minSdk, permissions and queries
         run: |
           sed -i 's/minSdk = flutter.minSdkVersion/minSdk = 24/' android/app/build.gradle.kts || true
           sed -i 's/minSdkVersion flutter.minSdkVersion/minSdkVersion 24/' android/app/build.gradle || true
           sed -i 's|<manifest xmlns:android="http://schemas.android.com/apk/res/android">|&<uses-permission android:name="android.permission.INTERNET"/><uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="29"/>|' android/app/src/main/AndroidManifest.xml
+          sed -i 's|<queries>|<queries><intent><action android:name="android.intent.action.VIEW"/><data android:scheme="https"/></intent><intent><action android:name="android.intent.action.GET_CONTENT"/><data android:mimeType="video/*"/></intent>|' android/app/src/main/AndroidManifest.xml
 
       - run: flutter pub get
 
-      - run: flutter build apk --release
+      - run: flutter build apk --release --no-shrink
 
       - name: Publish APK as a release
         uses: softprops/action-gh-release@v2
